@@ -1,7 +1,6 @@
-![Banner](https://cdn.discordapp.com/attachments/796997555752796184/838899161402310673/code.png)
+> Scarbon (Scuffed Carbon) is an elegant code renderer based off [Carbon](https://carbon.now.sh/) built 100% locally. Scarbon made using [Shiki](https://shiki.matsu.io/) for highlighting, [Prettier](https://prettier.io/) for formatting, and [Canvas](https://www.npmjs.com/package/canvas) for rendering.
 
-# Intro
-Scarbon (Scuffed Carbon) is an elegant code renderer based off [Carbon](https://carbon.now.sh/) built 100% locally. Scarbon made using [Shiki](https://shiki.matsu.io/) for highlighting, [Prettier](https://prettier.io/) for formatting, and [Canvas](https://www.npmjs.com/package/canvas) for rendering.
+![Banner](banner.png)
 
 # Example
 The below snippet creates a render of itself
@@ -29,7 +28,7 @@ const fs = require("fs");
 })();
 ```
 Output image (`code.png`)
-![Output](https://cdn.discordapp.com/attachments/796997555752796184/838913659073331240/code.png)
+![Output](code.png)
 # Documentation
 **Methods**
 ```js
