@@ -3,15 +3,24 @@
 export = scarbon;
 
 declare class scarbon {
-  constructor(options?: options);
-  png(code: string, options?: options): buffer;
-  pretty(code: string, options?: options): buffer;
-  svg(code: string, options?: options): string;
-  static load(theme: string | object | buffer): object;
+  constructor(options?: Options);
+  png(code: string, options?: Options): Buffer;
+  pretty(code: string, options?: Options): Buffer;
+  svg(code: string, options?: Options): string;
+  static load(theme: string | object | Buffer): object;
 }
 
-declare interface options {
-  formatter?: formatOptions
+declare interface Options {
+  formatter?: {
+    format?: string
+    trailingComma?: string
+    tab?: number
+    length?: number
+    bracketSpacing?: boolean
+    semicolon?: boolean
+    singleQuote?: boolean
+    disabled?: boolean
+  }
   background?: string
   padding?: number
   width?: number
@@ -21,15 +30,4 @@ declare interface options {
   base?: string
   lang?: string
   theme?: string | object
-}
-
-declare interface formatOptions {
-  format?: string
-  trailingComma?: string
-  tab?: number
-  length?: number
-  bracketSpacing?: boolean
-  semicolon?: boolean
-  singleQuote?: boolean
-  disabled?: boolean
 }
