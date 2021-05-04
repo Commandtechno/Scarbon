@@ -10,7 +10,17 @@ const Scarbon = require("scarbon");
 const fs = require("fs");
 
 (async () => {
-  const render = await new Scarbon({theme: 'nord'});
+  const render = await new Scarbon({
+    theme: "min-dark", // One of the default shiki themes
+    // (https://github.com/misolori/min-theme)
+
+    background: "#2e3440", // Nord background color
+    // (https://github.com/arcticicestudio/nord-visual-studio-code)
+
+    base: "transparent", // Color behind the codeblock
+    width: 2048, // Set the width of the image
+    radius: 32 // Set the radius of the codeblock corner
+  });
 
   const code = fs.readFileSync(__filename, "utf8"); // Get current file contents
   const output = render.pretty(code); // Get file buffer
