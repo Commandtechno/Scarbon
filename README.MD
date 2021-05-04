@@ -60,7 +60,7 @@ theme|Theme to use (Use `Scarbon.load` for external themes)|theme string, loaded
 
 formatOptions (`object`)
 Option|Description|Type|Default
-:---|:----:|:----:|:----:|---:
+:---|:----:|:----:|---:
 format|Engine for language formatting|string|babel
 trailingComma|Whether to add a comma to the end of objects|string (all, none, es5)|none
 tab|Indent size|number|2
