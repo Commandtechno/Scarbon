@@ -10,12 +10,7 @@ const fs = require("fs");
 
 (async () => {
   const render = await new Scarbon({
-    theme: "min-dark", // One of the default shiki themes
-    // (https://github.com/misolori/min-theme)
-
-    background: "#2e3440", // Nord background color
-    // (https://github.com/arcticicestudio/nord-visual-studio-code)
-
+    theme: "min-dark", // One of the default themes (Full list below)
     base: "transparent", // Color behind the codeblock
     width: 2048, // Set the width of the image
     radius: 32 // Set the radius of the codeblock corner
@@ -29,12 +24,14 @@ const fs = require("fs");
 ```
 Output image (`code.png`)
 ![Output](code.png)
+
 # Documentation
 **Methods**
 ```js
 const Scarbon= require("scarbon")
 
-Scarbon.load(theme) // { Promise } => Theme to use in options
+Scarbon.list() // List of registered themes to load by name
+Scarbon.register(theme) // Register a theme to load by name
 new Scarbon(options) // { Promise } => Renderer (below)
 ```
 
@@ -47,8 +44,8 @@ new Scarbon(options) // { Promise } => Renderer (below)
 }
 ```
 
-**Theme** (`string`)
-The theme to use, can be a URL to a theme JSON, a path to a theme JSON file, theme object,  theme buffer
+**Theme** (`string`, `object`)
+The theme to use, can be a registered theme name, a URL to a VSCode theme JSON, a path to a VSCode theme JSON file, VScode theme object
 
 **Code** (`string`)
 The text to format (Should match the language, and formatter parser if provided)
@@ -57,15 +54,15 @@ The text to format (Should match the language, and formatter parser if provided)
 Option|Description|Type|Default|Availability
 :---|:----:|:----:|:----:|---:
 formatter|Options for Prettier|formatOptions|formatOptions|all
-background|Background color for the codeblock|color string|Loaded theme background, or black|all
+background|Background color for the codeblock|color string|theme background|all
 padding|Amount of padding to add (8 => 1/8 of width)|number|8|pretty
-width|Width of output image in pixels|number|1920|pretty, png
+width|Width of output image in pixels|number|1200|pretty, png
 radius|Radius of the codeblock background corners|number|16|all
 size|Size of the code font|number|24|all
-font|Font to use for the code (A bit dodgy)|string|Consolas|all
+font|Font to use for the code (Experimental)|string|Consolas|all
 base|Color behind code block|color string|![xs](https://singlecolorimage.com/get/abb8c3/20x20) #ABB8C3|pretty
 lang|Language to highlight|language string|javascript|all
-theme|Theme to use (Use `Scarbon.load` for external themes)|theme string, loaded theme|nord|all
+theme|Theme to use|theme|nord|constructor
 
 formatOptions (`object`)
 Option|Description|Type|Default
@@ -76,5 +73,53 @@ tab|Indent size|number|2
 length|Max length before wrapping text|number|80
 bracketSpacing|Whether to add space in between {}|boolean|true
 semicolon|Whether to add semicolons to the end of lines|boolean|true
-singleQuote|Whether to use ' on strings instead of "|boolean|true
+singleQuote|Whether to use ' on strings instead of "|boolean|false
 disabled|Whether to disable the formatter all together|boolean|false
+
+# Default Theme List
+- 3024 Night
+- A11y Dark
+- Base 16 Dark
+- Base 16 Light
+- Blackboard
+- Cobalt
+- Dracula
+- DuoTone Earth
+- DuoTone Forest
+- DuoTone Sea
+- DuoTone Sky
+- DuoTone Space
+- Github Dark
+- Github Light
+- Hopscoth
+- light-plus
+- Lucario
+- Material Darker
+- Material Default
+- Material Lighter
+- Material Ocean
+- Material Palenight
+- Min Dark
+- Min Light
+- Monokai
+- Night Owl Italics
+- Night Owl
+- Nord
+- Oceanic Next
+- One Dark
+- One Light
+- Panda
+- Paraiso Dark
+- Paraiso Light
+- Seti
+- Shades of Purple Italics
+- Shades of Purple
+- Slack Dark
+- Slack Ochin
+- Solarized Dark
+- Solarized Light
+- Synthwave 84
+- Twilight
+- Verminal
+- VS Code
+- Zenburn

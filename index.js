@@ -13,7 +13,7 @@ module.exports = class {
         length: printWidth = 80,
         bracketSpacing = true,
         semicolon: semi = true,
-        singleQuote = true,
+        singleQuote = false,
         disabled = false
       } = {
         parser: "babel",
@@ -21,19 +21,19 @@ module.exports = class {
         tabWidth: 2,
         printWidth: 80,
         bracketSpacing: true,
-        singleQuote: true,
+        singleQuote: false,
         semi: true,
         disabled: false
       },
       background: bg,
       padding = 8,
-      width = 960,
+      width = 1200,
       radius: bgCornerRadius = 12,
       size: fontSize = 24,
       font: fontFamily = "Consolas",
       base = "rgb(171, 184, 195)",
       lang = "javascript",
-      theme = "nord"
+      theme = "VS Code"
     } = {
       formatter: {
         parser: "babel",
@@ -41,16 +41,16 @@ module.exports = class {
         tabWidth: 2,
         printWidth: 80,
         bracketSpacing: true,
-        singleQuote: true,
+        singleQuote: false,
         semi: true,
         disabled: false
       },
       padding: 8,
       bgCornerRadius: 12,
       fontSize: 24,
-      width: 960,
+      width: 1200,
       lang: "javascript",
-      theme: "nord",
+      theme: "VS Code",
       fontFamily: "Consolas",
       base: "rgb(171, 184, 195)",
       bg: null
@@ -71,27 +71,30 @@ module.exports = class {
       lang,
       width,
       padding,
-      theme,
       fontFamily,
       fontSize,
       bgCornerRadius,
-      bg: bg || theme.bg || "#000"
+      bg
     };
 
-    return Promise.all([
-      getHighlighter({
-        theme
-      }),
+    return load(theme).then((theme) => {
+      if (!this._config.bg) this._config.bg = theme.bg;
 
-      getSVGRenderer({
-        fontFamily,
-        fontSize,
-        bgCornerRadius
-      })
-    ]).then(([{ codeToThemedTokens }, { renderToSVG }]) => {
-      this._highlight = codeToThemedTokens;
-      this._render = renderToSVG;
-      return this;
+      return Promise.all([
+        getHighlighter({
+          theme
+        }),
+
+        getSVGRenderer({
+          fontFamily,
+          fontSize,
+          bgCornerRadius
+        })
+      ]).then(([{ codeToThemedTokens }, { renderToSVG }]) => {
+        this._highlight = codeToThemedTokens;
+        this._render = renderToSVG;
+        return this;
+      });
     });
   }
 
@@ -279,22 +282,60 @@ module.exports = class {
     return out;
   }
 
-  static async load(theme) {
-    if (typeof theme === "object") {
-      const { writeFile } = require("fs/promises");
-      let current;
-      try {
-        current = require("./theme.json");
-      } catch {}
+  static list() {
+    const { readdirSync } = require("fs");
+    return readdirSync(__dirname + "/themes").map((theme) =>
+      theme.replace(/\.json$/, "")
+    );
+  }
 
-      if (JSON.stringify(current) !== theme) {
-        const { writeFile } = require("fs/promises");
-        await writeFile(__dirname + "/theme.json", JSON.stringify(theme));
-      }
-
-      return this.load(__dirname + "/theme.json");
-    }
-
-    return loadTheme(theme);
+  static register(name, theme) {
+    const { writeFile } = require("fs/promises");
+    return load(theme).then((theme) =>
+      writeFile(__dirname + "/themes/" + name + ".json", JSON.stringify(theme))
+    );
   }
 };
+
+console.log(module.exports.list().join('\n- '))
+
+function load(theme) {
+  if (typeof theme === "object") {
+    if (theme._shiki) return { then: () => theme };
+    const path = __dirname + "/" + Date.now() + ".json";
+    const { writeFile, unlink } = require("fs/promises");
+
+    theme = writeFile(path, JSON.stringify(theme)).then(() => {
+      const res = loadTheme(path);
+      res._shiki = true;
+      res.then = (callback) => callback(theme);
+      return res;
+    });
+
+    theme.then(() => unlink(path));
+
+    return theme;
+  } else if (typeof theme === "string") {
+    if (theme.startsWith("http")) {
+      const { get } = require("https");
+      return new Promise((resolve, reject) => {
+        get(theme, (req) => {
+          let res = "";
+
+          req
+            .on("end", () => resolve(load(JSON.parse(res))))
+            .on("data", (data) => (res += data))
+            .on("error", reject);
+        }).on("error", reject);
+      });
+    }
+
+    if (!theme.endsWith(".json"))
+      theme = require("./themes/" + theme + ".json");
+    else theme = loadTheme(theme);
+
+    theme._shiki = true;
+    theme.then = (callback) => callback(theme);
+    return theme;
+  }
+}
