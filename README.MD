@@ -61,7 +61,7 @@ radius|Radius of the codeblock background corners|number|16|all
 size|Size of the code font|number|24|all
 font|Font to use for the code (Experimental)|string|Consolas|all
 base|Color behind code block|color string|![xs](https://singlecolorimage.com/get/abb8c3/20x20) #ABB8C3|pretty
-lang|Language to highlight|language string|javascript|all
+lang|Language to highlight in|language string|javascript|all
 theme|Theme to use|theme|nord|constructor
 
 formatOptions (`object`)

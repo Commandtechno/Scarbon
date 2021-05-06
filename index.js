@@ -35,26 +35,26 @@ module.exports = class {
       lang = "javascript",
       theme = "VS Code"
     } = {
-      formatter: {
-        parser: "babel",
-        trailingComma: "none",
-        tabWidth: 2,
-        printWidth: 80,
-        bracketSpacing: true,
-        singleQuote: false,
-        semi: true,
-        disabled: false
-      },
-      padding: 8,
-      bgCornerRadius: 12,
-      fontSize: 24,
-      width: 1200,
-      lang: "javascript",
-      theme: "VS Code",
-      fontFamily: "Consolas",
-      base: "rgb(171, 184, 195)",
-      bg: null
-    }
+        formatter: {
+          parser: "babel",
+          trailingComma: "none",
+          tabWidth: 2,
+          printWidth: 80,
+          bracketSpacing: true,
+          singleQuote: false,
+          semi: true,
+          disabled: false
+        },
+        padding: 8,
+        bgCornerRadius: 12,
+        fontSize: 24,
+        width: 1200,
+        lang: "javascript",
+        theme: "VS Code",
+        fontFamily: "Consolas",
+        base: "rgb(171, 184, 195)",
+        bg: null
+      }
   ) {
     this._config = {
       formatter: {
@@ -114,19 +114,19 @@ module.exports = class {
       background: bg = this._config.bg,
       lang = this._config.lang
     } = {
-      formatter: {
-        parser: this._config.formatter.parser,
-        trailingComma: this._config.formatter.trailingComma,
-        tabWidth: this._config.formatter,
-        printWidth: this._config.formatter.printWidth,
-        bracketSpacing: this._config.formatter.bracketSpacing,
-        singleQuote: this._config.formatter.singleQuote,
-        semi: this._config.formatter.semi,
-        disabled: this._config.formatter.disabled
-      },
-      bg: this._config.bg,
-      lang: this._config.lang
-    }
+        formatter: {
+          parser: this._config.formatter.parser,
+          trailingComma: this._config.formatter.trailingComma,
+          tabWidth: this._config.formatter,
+          printWidth: this._config.formatter.printWidth,
+          bracketSpacing: this._config.formatter.bracketSpacing,
+          singleQuote: this._config.formatter.singleQuote,
+          semi: this._config.formatter.semi,
+          disabled: this._config.formatter.disabled
+        },
+        bg: this._config.bg,
+        lang: this._config.lang
+      }
   ) {
     if (!disabled)
       code = format(code, {
@@ -158,19 +158,19 @@ module.exports = class {
       background: bg = this._config.bg,
       lang = this._config.lang
     } = {
-      formatter: {
-        parser: this._config.formatter.parser,
-        trailingComma: this._config.formatter.trailingComma,
-        tabWidth: this._config.formatter,
-        printWidth: this._config.formatter.printWidth,
-        bracketSpacing: this._config.formatter.bracketSpacing,
-        singleQuote: this._config.formatter.singleQuote,
-        semi: this._config.formatter.semi,
-        disabled: this._config.formatter.disabled
-      },
-      bg: this._config.bg,
-      lang: this._config.lang
-    }
+        formatter: {
+          parser: this._config.formatter.parser,
+          trailingComma: this._config.formatter.trailingComma,
+          tabWidth: this._config.formatter,
+          printWidth: this._config.formatter.printWidth,
+          bracketSpacing: this._config.formatter.bracketSpacing,
+          singleQuote: this._config.formatter.singleQuote,
+          semi: this._config.formatter.semi,
+          disabled: this._config.formatter.disabled
+        },
+        bg: this._config.bg,
+        lang: this._config.lang
+      }
   ) {
     if (!disabled)
       code = format(code, {
@@ -218,22 +218,22 @@ module.exports = class {
       width = this._config.width,
       padding = this._config.padding
     } = {
-      formatter: {
-        parser: this._config.formatter.parser,
-        trailingComma: this._config.formatter.trailingComma,
-        tabWidth: this._config.formatter,
-        printWidth: this._config.formatter.printWidth,
-        bracketSpacing: this._config.formatter.bracketSpacing,
-        singleQuote: this._config.formatter.singleQuote,
-        semi: this._config.formatter.semi,
-        disabled: this._config.formatter.disabled
-      },
-      bg: this._config.bg,
-      base: this._config.base,
-      lang: this._config.lang,
-      width: this._config.width,
-      padding: this._config.padding
-    }
+        formatter: {
+          parser: this._config.formatter.parser,
+          trailingComma: this._config.formatter.trailingComma,
+          tabWidth: this._config.formatter,
+          printWidth: this._config.formatter.printWidth,
+          bracketSpacing: this._config.formatter.bracketSpacing,
+          singleQuote: this._config.formatter.singleQuote,
+          semi: this._config.formatter.semi,
+          disabled: this._config.formatter.disabled
+        },
+        bg: this._config.bg,
+        base: this._config.base,
+        lang: this._config.lang,
+        width: this._config.width,
+        padding: this._config.padding
+      }
   ) {
     if (!disabled)
       code = format(code, {
@@ -297,8 +297,6 @@ module.exports = class {
   }
 };
 
-console.log(module.exports.list().join('\n- '))
-
 function load(theme) {
   if (typeof theme === "object") {
     if (theme._shiki) return { then: () => theme };
@@ -313,7 +311,6 @@ function load(theme) {
     });
 
     theme.then(() => unlink(path));
-
     return theme;
   } else if (typeof theme === "string") {
     if (theme.startsWith("http")) {

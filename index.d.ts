@@ -1,13 +1,14 @@
 import { Lang } from 'shiki-languages';
 
-export = scarbon;
+declare type theme = string | object
 
 declare class scarbon {
   constructor(options?: Options);
   png(code: string, options?: Options): Buffer;
   pretty(code: string, options?: Options): Buffer;
   svg(code: string, options?: Options): string;
-  static load(theme: string | object | Buffer): object;
+  static list(): string[];
+  static register(theme: theme): Promise<undefined>;
 }
 
 declare interface Options {
@@ -29,5 +30,7 @@ declare interface Options {
   font?: string
   base?: string
   lang?: Lang
-  theme?: string | object
+  theme?: theme
 }
+
+export = scarbon;
