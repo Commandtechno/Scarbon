@@ -10,7 +10,7 @@ const fs = require("fs");
 
 (async () => {
   const render = await new Scarbon({
-    theme: "min-dark", // One of the default themes (Full list below)
+    theme: "Min Dark", // One of the default themes (Full list below)
     base: "transparent", // Color behind the codeblock
     width: 2048, // Set the width of the image
     radius: 32 // Set the radius of the codeblock corner
